@@ -27,7 +27,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Черновики (раскомментируйте, если не хотите коммитить черновики в git)
-# _drafts/
+_drafts/
 
 # Логи
 *.log
