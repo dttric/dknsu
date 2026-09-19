@@ -1,6 +1,7 @@
 title: dkn.su
 description: dkn group hub & blog
-url: "https://dkn.su"
+url: ""
+baseurl: ""
 markdown: kramdown
 permalink: /blog/:title.html
 exclude:
