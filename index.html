@@ -1,21 +1,114 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="ru" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="index.css">
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <meta http-equiv="refresh" content="0; URL=204.html">
-    <link rel="canonical" href="204.html">
-    <title>dkn/hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dkn.su // hub</title>
+
+    <!-- Bootstrap 5 CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background"></div>
-    <div class="content">
-        <h1 class="font-extrabold">мяу</h1>
+    <div id="animated-bg" aria-hidden="true"></div>
+
+    <div class="site-container">
+        <!-- Сайдбар (навигация и ссылки dkn) -->
+        <aside class="sidebar font-monospace" id="sidebar">
+            <div class="brand-block">
+                <h1 class="brand-title">dkn<span class="brand-domain">.su</span></h1>
+                <div class="brand-badge"><span>●</span> GROUP HUB</div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <span class="section-title">social</span>
+                    <div class="social-row">
+                        <a href="https://t.me/dknshitpost" target="_blank" rel="noopener" title="telegram"><i class="bi bi-telegram"></i></a>
+                        <a href="https://github.com/dttric" target="_blank" rel="noopener" title="github"><i class="bi bi-github"></i></a>
+                        <a href="https://steamcommunity.com/" target="_blank" rel="noopener" title="steam"><i class="bi bi-steam"></i></a>
+                        <a href="mailto:contact@dkn.su" title="email"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <span class="section-title">projects</span>
+                    <div class="sidebar-empty-notice">// все будет, но не сейчас</div>
+                </div>
+
+                <div class="nav-section">
+                    <span class="section-title">services</span>
+                    <ul class="nav-links">
+                        <li><a href="blog"><i class="bi bi-newspaper"></i> <span>publications</span></a></li>
+                    </ul>
+                </div>
+
+
+            </nav>
+
+            <footer class="sidebar-footer">
+                <small class="text-muted">dkn.su // 2026</small>
+            </footer>
+        </aside>
+
+        <!-- Основная область: Модульный Дашборд (Только для десктопа) -->
+        <main class="dashboard" id="dashboard" role="main">
+
+            <!-- Контентная сетка дашборда -->
+            <div class="dashboard-grid">
+                <!-- Главная колонка: Издание / Новости / Блог -->
+                <section class="dashboard-card news-section" id="feed">
+                    <div class="card-header-cyber">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-newspaper text-accent"></i>
+                            <h2 class="h5 m-0 font-monospace">Издание // Новости</h2>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="filter-pills font-monospace" id="category-filters">
+                                <button class="filter-btn active" data-filter="all">все</button>
+                                <button class="filter-btn" data-filter="release">релизы</button>
+                                <button class="filter-btn" data-filter="article">статьи</button>
+                                <button class="filter-btn" data-filter="announcement">объявления</button>
+                            </div>
+                            <a href="blog" class="blog-archive-link font-monospace">блог <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="news-list" id="news-container">
+                        <!-- Новости загружаются через JS (feed.json / API) -->
+                        <div class="loading-placeholder font-monospace text-muted">
+                            <i class="bi bi-arrow-repeat spin"></i> Загрузка публикаций...
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Боковая колонка дашборда: API -->
+                <div class="dashboard-side-col">
+                    <section class="dashboard-card api-section" id="api">
+                        <div class="card-header-cyber">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-code-slash text-accent"></i>
+                                <h3 class="h6 m-0 font-monospace">API</h3>
+                            </div>
+                            <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle font-monospace">PENDING</span>
+                        </div>
+                        <div class="card-body-cyber">
+                            <div class="api-placeholder font-monospace">
+                                <i class="bi bi-terminal placeholder-icon"></i>
+                                <div class="placeholder-text">to be added...</div>
+                                <div class="placeholder-subtext text-muted">// endpoint specification in progress</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
     </div>
-    <script src="js/bootstrap.bundle.js"></script>
+
+    <!-- Скрипт приложения -->
+    <script src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,47 @@
+# ==============================================================================
+# .gitignore для проекта dkn.su
+# ==============================================================================
+
+# Скомпилированный статический сайт (генерируется через build.py / Jekyll)
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Python кэш и виртуальные окружения
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+
+# Локальные файлы и кэш Vercel
+.vercel/
+
+# Node.js / NPM (если используются)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Черновики (раскомментируйте, если не хотите коммитить черновики в git)
+# _drafts/
+
+# Логи
+*.log
+
+# Системные файлы ОС
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Настройки редакторов и IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-workspace

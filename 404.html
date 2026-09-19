@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dkn.su // 204</title>
+    <title>dkn.su // 404</title>
 
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/error.css">
 
+    <!-- Встроенные стили, чтобы страница гарантированно отображалась при любой глубине пути (например, /a/b/c) -->
     <style>
         :root {
             --bg-color: #080c14;
@@ -98,12 +99,27 @@
             font-size: 1.15rem;
             font-weight: 300;
             color: var(--text-muted);
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             max-width: 520px;
         }
 
         .error-message i {
             font-style: italic;
+        }
+
+        .missing-path {
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+        }
+
+        .missing-path span {
+            color: var(--accent-color);
         }
 
         .back-link {
@@ -133,12 +149,26 @@
 <body>
     <div class="background"></div>
     <div class="content">
-        <h1 class="error-code">20<span>4</span></h1>
-        <p class="error-message"><i>тут все еще ничего нет, но все возможно</i></p>
+        <h1 class="error-code">40<span>4</span></h1>
+        <p class="error-message"><i>страница не найдена, либо еще не создана</i></p>
+        <div id="missing-path" class="missing-path" style="display: none;">
+            [запрошен: <span id="path-val"></span>]
+        </div>
         <a href="/" class="back-link">
             <i class="bi bi-arrow-left"></i>
             <span>вернуться на dkn.su</span>
         </a>
     </div>
+    <script>
+        const path = window.location.pathname;
+        if (path && path !== '/' && path !== '/404' && path !== '/404.html') {
+            const el = document.getElementById('missing-path');
+            const val = document.getElementById('path-val');
+            if (el && val) {
+                val.textContent = path;
+                el.style.display = 'inline-block';
+            }
+        }
+    </script>
 </body>
 </html>

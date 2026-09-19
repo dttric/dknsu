@@ -1,0 +1,8 @@
+title: dkn.su
+description: dkn group hub & blog
+url: "https://dkn.su"
+markdown: kramdown
+permalink: /blog/:year-:month-:day-:title.html
+exclude:
+  - README.md
+  - CNAME
