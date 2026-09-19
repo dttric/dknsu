@@ -9,6 +9,16 @@ import sys
 import re
 import json
 import shutil
+import subprocess
+
+# Автоматическая установка зависимостей, если они отсутствуют в окружении (например, на Vercel)
+for pkg, mod in [("pyyaml", "yaml"), ("markdown", "markdown")]:
+    try:
+        __import__(mod)
+    except ImportError:
+        print(f"[*] Установка недостающего модуля: {pkg}...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
+
 import yaml
 import markdown
 
