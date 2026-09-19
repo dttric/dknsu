@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<article class="post-single">
+    <header class="post-header mb-4">
+        <div class="post-meta font-monospace mb-2">
+            <span class="tag-badge tag-{{ page.category | default: 'article' }}">{{ page.tag | default: page.category }}</span>
+            <span class="post-date text-muted"><i class="bi bi-calendar3"></i> {{ page.date | date: "%Y-%m-%d" }}</span>
+            {% if page.author %}
+            <span class="text-muted">// {{ page.author }}</span>
+            {% endif %}
+        </div>
+        <h1 class="post-title">{{ page.title }}</h1>
+    </header>
+
+    <div class="post-content">
+        {{ content }}
+    </div>
+
+    <div class="post-footer mt-5 pt-4 border-top border-secondary-subtle font-monospace">
+        <a href="/blog" class="btn btn-outline-cyber">
+            <i class="bi bi-arrow-left"></i> все публикации
+        </a>
+    </div>
+</article>

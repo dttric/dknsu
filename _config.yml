@@ -1,0 +1,14 @@
+title: dkn.su
+description: dkn group hub & blog
+url: ""
+baseurl: ""
+markdown: kramdown
+permalink: /blog/:year-:month-:day-:title.html
+exclude:
+  - README.md
+  - CNAME
+  - build.py
+  - serve.py
+  - start.bat
+  - requirements.txt
+  - Gemfile.lock
