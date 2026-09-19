@@ -6,16 +6,16 @@ permalink: /blog.html
 
 <div class="blog-header-section mb-4">
     <div class="d-flex justify-content-between align-items-center mb-2">
-        <h1 class="h2 font-monospace fw-bold m-0">посты</h1>
+        <h1 class="h2 font-monospace fw-bold m-0">Публикации // Блог</h1>
+        <span class="badge bg-secondary-subtle text-secondary font-monospace">JEKYLL ARCHIVE</span>
     </div>
-    <p class="text-muted font-monospace">// статьи, релизы и вся хуйня от dkn</p>
+    <p class="text-muted font-monospace">// статьи, релизы и технические отчеты группы dkn</p>
 </div>
 
 <div class="blog-list" id="blog-posts-container">
-    <!-- Посты для Jekyll сборки -->
     {% if site.posts and site.posts.size > 0 %}
         {% for post in site.posts %}
-        <a href="{{ post.url }}" class="blog-card">
+        <a href="{{ post.url | remove: '.html' }}" class="blog-card">
             <div class="news-meta font-monospace mb-2">
                 <span class="tag-badge tag-{{ post.category | default: 'article' }}">{{ post.tag | default: post.category }}</span>
                 <span class="news-date"><i class="bi bi-calendar3"></i> {{ post.date | date: "%Y-%m-%d" }}</span>
@@ -28,45 +28,9 @@ permalink: /blog.html
         </a>
         {% endfor %}
     {% else %}
-        <!-- Статический fallback для локального просмотра без запущенного Jekyll -->
-        <a href="_posts/2026-09-20-infrastructure-update.md" class="blog-card">
-            <div class="news-meta font-monospace mb-2">
-                <span class="tag-badge tag-release">Релиз</span>
-                <span class="news-date"><i class="bi bi-calendar3"></i> 2026-09-20</span>
-                <span class="text-muted">// dkn team</span>
-            </div>
-            <h2 class="blog-card-title">Обновление инфраструктуры dkn.su и запуск дашборда</h2>
-            <p class="blog-card-excerpt">Развернут новый узел dkn.su. Переработана структура сервисов, внедрена модульная система виджетов и интеграция с Jekyll-блогом.</p>
-        </a>
-
-        <a href="_posts/2026-08-14-lightweight-web-services.md" class="blog-card">
-            <div class="news-meta font-monospace mb-2">
-                <span class="tag-badge tag-article">Статья</span>
-                <span class="news-date"><i class="bi bi-calendar3"></i> 2026-08-14</span>
-                <span class="text-muted">// root</span>
-            </div>
-            <h2 class="blog-card-title">Архитектура легковесных веб-сервисов на dknhttp</h2>
-            <p class="blog-card-excerpt">Разбор принципов проектирования минималистичных HTTP-демонов и микросервисов для внутренних нужд группы.</p>
-        </a>
-
-        <a href="_posts/2026-07-02-repositories-and-branches.md" class="blog-card">
-            <div class="news-meta font-monospace mb-2">
-                <span class="tag-badge tag-announcement">Объявление</span>
-                <span class="news-date"><i class="bi bi-calendar3"></i> 2026-07-02</span>
-                <span class="text-muted">// dkn core</span>
-            </div>
-            <h2 class="blog-card-title">Формирование репозиториев и открытие новых веток</h2>
-            <p class="blog-card-excerpt">Синхронизация проектов группы dkn, настройка вебхуков и публичных зеркал для открытых инструментов.</p>
-        </a>
-
-        <a href="_posts/2026-06-10-welcome-to-dkn.md" class="blog-card">
-            <div class="news-meta font-monospace mb-2">
-                <span class="tag-badge tag-article">Статья</span>
-                <span class="news-date"><i class="bi bi-calendar3"></i> 2026-06-10</span>
-                <span class="text-muted">// dkn core</span>
-            </div>
-            <h2 class="blog-card-title">Добро пожаловать в dkn: манифест и цели</h2>
-            <p class="blog-card-excerpt">О целях группы, направлениях разработки и ключевых принципах нашего сообщества.</p>
-        </a>
+        <div class="empty-feed-placeholder font-monospace text-center py-5">
+            <i class="bi bi-inbox placeholder-icon"></i>
+            <div class="placeholder-text">// в блоге пока нет опубликованных статей</div>
+        </div>
     {% endif %}
 </div>

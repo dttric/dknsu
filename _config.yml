@@ -3,7 +3,7 @@ description: dkn group hub & blog
 url: ""
 baseurl: ""
 markdown: kramdown
-permalink: /blog/:title.html
+permalink: /blog/:year-:month-:day-:title.html
 exclude:
   - README.md
   - CNAME

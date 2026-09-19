@@ -2,42 +2,6 @@
  * dkn.su — Hub & Dashboard Script
  */
 
-// Резервные данные на случай открытия через file:// без веб-сервера
-const FALLBACK_DATA = {
-    articles: [
-        {
-            id: "post-1",
-            category: "release",
-            tag: "Релиз",
-            title: "Обновление инфраструктуры dkn.su и запуск дашборда",
-            date: "2026-09-20",
-            url: "/blog/2026-09-20-infrastructure-update",
-            summary: "Развернут новый узел dkn.su. Переработана структура сервисов, внедрена модульная система виджетов и интеграция с Jekyll-блогом.",
-            author: "dkn team"
-        },
-        {
-            id: "post-2",
-            category: "article",
-            tag: "Статья",
-            title: "Архитектура легковесных веб-сервисов на dknhttp",
-            date: "2026-08-14",
-            url: "/blog/2026-08-14-lightweight-web-services",
-            summary: "Разбор принципов проектирования минималистичных HTTP-демонов и микросервисов для внутренних нужд группы.",
-            author: "root"
-        },
-        {
-            id: "post-3",
-            category: "announcement",
-            tag: "Объявление",
-            title: "Формирование репозиториев и открытие новых веток",
-            date: "2026-07-02",
-            url: "/blog/2026-07-02-repositories-and-branches",
-            summary: "Синхронизация проектов группы dkn, настройка вебхуков и публичных зеркал для открытых инструментов.",
-            author: "dkn core"
-        }
-    ]
-};
-
 let currentArticles = [];
 let activeFilter = 'all';
 
@@ -47,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDashboardData();
 });
 
-// Загрузка данных (из feed.json или fallback)
+// Загрузка данных из feed.json
 async function loadDashboardData(callback) {
     try {
         const response = await fetch('/feed.json', { cache: 'no-store' });
@@ -55,48 +19,69 @@ async function loadDashboardData(callback) {
         const data = await response.json();
         renderData(data);
     } catch (err) {
-        console.warn('Загрузка feed.json не удалась (возможно локальный file://), используются резервные данные:', err);
-        renderData(FALLBACK_DATA);
+        console.warn('Загрузка feed.json не удалась, используются резервные данные:', err);
+        renderData({ articles: [] });
     } finally {
         if (typeof callback === 'function') callback();
     }
 }
 
-// Отрисовка данных (берем первые 3 поста для издания)
+// Отрисовка данных (правило: ровно 3 последних поста)
 function renderData(data) {
-    if (data.articles) {
-        currentArticles = data.articles.slice(0, 3);
-        renderArticles(currentArticles, activeFilter);
-    }
+    const rawArticles = Array.isArray(data.articles) ? data.articles : [];
+
+    // Сортируем по дате (свежие сверху) и берем ровно 3 последних
+    currentArticles = rawArticles
+        .slice()
+        .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+        .slice(0, 3);
+
+    renderArticles(currentArticles, activeFilter);
 }
 
-// Отрисовка новостей с учетом фильтра
+// Отрисовка постов в блок «Издание»
 function renderArticles(articles, filter) {
     const container = document.getElementById('news-container');
     if (!container) return;
 
-    const filtered = filter === 'all' 
-        ? articles 
-        : articles.filter(item => item.category === filter);
-
-    if (filtered.length === 0) {
+    // 1. Если постов в блоге вообще нет
+    if (!articles || articles.length === 0) {
         container.innerHTML = `
-            <div class="text-muted font-monospace py-4 text-center">
-                В этой категории пока нет записей.
+            <div class="empty-feed-placeholder font-monospace text-center">
+                <i class="bi bi-inbox placeholder-icon"></i>
+                <div class="placeholder-text">// публикаций пока нет</div>
+                <div class="placeholder-subtext text-muted">новые посты появятся здесь после добавления в блог</div>
             </div>
         `;
         return;
     }
 
+    // 2. Фильтрация по рубрике
+    const filtered = filter === 'all' 
+        ? articles 
+        : articles.filter(item => item.category === filter);
+
+    // 3. Если по выбранному фильтру ничего не найдено
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="empty-feed-placeholder font-monospace text-center py-4">
+                <i class="bi bi-funnel placeholder-icon fs-3"></i>
+                <div class="placeholder-text fs-6">// в категории «${escapeHtml(filter)}» пока нет записей</div>
+            </div>
+        `;
+        return;
+    }
+
+    // 4. Отрисовка карточек
     container.innerHTML = filtered.map(item => `
         <a href="${escapeHtml(item.url || '/blog')}" class="news-item">
             <div class="news-meta font-monospace">
-                <span class="tag-badge tag-${escapeHtml(item.category)}">${escapeHtml(item.tag || item.category)}</span>
-                <span class="news-date"><i class="bi bi-calendar3"></i> ${escapeHtml(item.date)}</span>
+                <span class="tag-badge tag-${escapeHtml(item.category || 'article')}">${escapeHtml(item.tag || item.category || 'статья')}</span>
+                <span class="news-date"><i class="bi bi-calendar3"></i> ${escapeHtml(item.date || '')}</span>
                 ${item.author ? `<span class="text-muted">// ${escapeHtml(item.author)}</span>` : ''}
             </div>
-            <h3 class="news-title">${escapeHtml(item.title)}</h3>
-            <p class="news-summary">${escapeHtml(item.summary)}</p>
+            <h3 class="news-title">${escapeHtml(item.title || 'Без названия')}</h3>
+            <p class="news-summary">${escapeHtml(item.summary || '')}</p>
         </a>
     `).join('');
 }
