@@ -178,6 +178,40 @@ body {
     transform: translateY(-2px);
 }
 
+.social-row .social-item {
+    font-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-row .disabled,
+.social-row a.disabled {
+    color: var(--text-muted);
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.social-row .disabled:hover,
+.social-row a.disabled:hover {
+    color: var(--text-muted);
+    transform: none;
+}
+
+.social-row .social-placeholder {
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1.5px solid var(--text-muted);
+    background-color: rgba(255, 255, 255, 0.06);
+    opacity: 0.35;
+    vertical-align: middle;
+    cursor: not-allowed;
+}
+
 .nav-links {
     list-style: none;
     padding: 0;
