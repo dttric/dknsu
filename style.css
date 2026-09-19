@@ -185,31 +185,26 @@ body {
     justify-content: center;
 }
 
-.social-row .disabled,
-.social-row a.disabled {
-    color: var(--text-muted);
-    opacity: 0.35;
+/* Иконка GitHub в стиле плейсхолдера с анимацией мерцания */
+.social-row .social-placeholder-icon {
+    color: var(--text-secondary);
+    animation: placeholder-glow 2s ease-in-out infinite;
     cursor: not-allowed;
     pointer-events: none;
-    text-decoration: none;
+    user-select: none;
 }
 
-.social-row .disabled:hover,
-.social-row a.disabled:hover {
-    color: var(--text-muted);
-    transform: none;
-}
-
-.social-row .social-placeholder {
-    width: 1.15rem;
-    height: 1.15rem;
+/* Четко видимые круглые плейсхолдеры (скелетон) */
+.social-row .social-placeholder-circle {
+    width: 1.25rem;
+    height: 1.25rem;
     border-radius: 50%;
     display: inline-block;
-    border: 1.5px solid var(--text-muted);
-    background-color: rgba(255, 255, 255, 0.06);
-    opacity: 0.35;
-    vertical-align: middle;
+    background-color: rgba(148, 163, 184, 0.35);
+    border: 1.5px dashed rgba(148, 163, 184, 0.55);
     cursor: not-allowed;
+    pointer-events: none;
+    vertical-align: middle;
 }
 
 .nav-links {
