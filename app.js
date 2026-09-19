@@ -2,99 +2,58 @@
  * dkn.su — Hub & Dashboard Script
  */
 
-let currentArticles = [];
 let activeFilter = 'all';
 
-// Инициализация
+// Инициализация при загрузке DOM
 document.addEventListener('DOMContentLoaded', () => {
     initFilters();
-    loadDashboardData();
 });
 
-// Загрузка данных из feed.json
-async function loadDashboardData(callback) {
-    try {
-        const response = await fetch('/feed.json', { cache: 'no-store' });
-        if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-        const data = await response.json();
-        renderData(data);
-    } catch (err) {
-        console.warn('Загрузка feed.json не удалась, используются резервные данные:', err);
-        renderData({ articles: [] });
-    } finally {
-        if (typeof callback === 'function') callback();
-    }
-}
-
-// Отрисовка данных (правило: ровно 3 последних поста)
-function renderData(data) {
-    const rawArticles = Array.isArray(data.articles) ? data.articles : [];
-
-    // Сортируем по дате (свежие сверху) и берем ровно 3 последних
-    currentArticles = rawArticles
-        .slice()
-        .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
-        .slice(0, 3);
-
-    renderArticles(currentArticles, activeFilter);
-}
-
-// Отрисовка постов в блок «Издание»
-function renderArticles(articles, filter) {
+// Фильтрация существующих постов дашборда по рубрикам
+function initFilters() {
+    const buttons = document.querySelectorAll('.filter-btn');
     const container = document.getElementById('news-container');
     if (!container) return;
 
-    // 1. Если постов в блоге вообще нет
-    if (!articles || articles.length === 0) {
-        container.innerHTML = `
-            <div class="empty-feed-placeholder font-monospace text-center">
-                <i class="bi bi-inbox placeholder-icon"></i>
-                <div class="placeholder-text">// публикаций пока нет</div>
-                <div class="placeholder-subtext text-muted">новые посты появятся здесь после добавления в блог</div>
-            </div>
-        `;
-        return;
-    }
+    // Собираем все отрендеренные карточки новостей (максимум 3)
+    const items = Array.from(container.querySelectorAll('.news-item'));
 
-    // 2. Фильтрация по рубрике
-    const filtered = filter === 'all' 
-        ? articles 
-        : articles.filter(item => item.category === filter);
-
-    // 3. Если по выбранному фильтру ничего не найдено
-    if (filtered.length === 0) {
-        container.innerHTML = `
-            <div class="empty-feed-placeholder font-monospace text-center py-4">
-                <i class="bi bi-funnel placeholder-icon fs-3"></i>
-                <div class="placeholder-text fs-6">// в категории «${escapeHtml(filter)}» пока нет записей</div>
-            </div>
-        `;
-        return;
-    }
-
-    // 4. Отрисовка карточек
-    container.innerHTML = filtered.map(item => `
-        <a href="${escapeHtml(item.url || '/blog')}" class="news-item">
-            <div class="news-meta font-monospace">
-                <span class="tag-badge tag-${escapeHtml(item.category || 'article')}">${escapeHtml(item.tag || item.category || 'статья')}</span>
-                <span class="news-date"><i class="bi bi-calendar3"></i> ${escapeHtml(item.date || '')}</span>
-                ${item.author ? `<span class="text-muted">// ${escapeHtml(item.author)}</span>` : ''}
-            </div>
-            <h3 class="news-title">${escapeHtml(item.title || 'Без названия')}</h3>
-            <p class="news-summary">${escapeHtml(item.summary || '')}</p>
-        </a>
-    `).join('');
-}
-
-// Обработка кликов по фильтрам категорий
-function initFilters() {
-    const buttons = document.querySelectorAll('.filter-btn');
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
             buttons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            activeFilter = btn.getAttribute('data-filter');
-            renderArticles(currentArticles, activeFilter);
+            activeFilter = btn.getAttribute('data-filter') || 'all';
+
+            // Удаляем временное сообщение о пустой категории, если оно было создано
+            const existingNotice = container.querySelector('.filter-empty-notice');
+            if (existingNotice) {
+                existingNotice.remove();
+            }
+
+            // Если постов в блоге изначально нет (показана стандартная заглушка)
+            if (items.length === 0) return;
+
+            let visibleCount = 0;
+            items.forEach(item => {
+                const category = item.getAttribute('data-category');
+                if (activeFilter === 'all' || category === activeFilter) {
+                    item.style.display = '';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Если по выбранному фильтру среди 3 последних постов ничего нет
+            if (visibleCount === 0) {
+                const notice = document.createElement('div');
+                notice.className = 'empty-feed-placeholder filter-empty-notice font-monospace text-center py-4';
+                notice.innerHTML = `
+                    <i class="bi bi-funnel placeholder-icon fs-3"></i>
+                    <div class="placeholder-text fs-6">// в категории «${escapeHtml(activeFilter)}» пока нет записей</div>
+                `;
+                container.appendChild(notice);
+            }
         });
     });
 }

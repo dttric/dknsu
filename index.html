@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="ru" data-bs-theme="dark">
 <head>
@@ -42,11 +45,9 @@
                 <div class="nav-section">
                     <span class="section-title">services</span>
                     <ul class="nav-links">
-                        <li><a href="blog"><i class="bi bi-newspaper"></i> <span>publications</span></a></li>
+                        <li><a href="/blog"><i class="bi bi-newspaper"></i> <span>publications</span></a></li>
                     </ul>
                 </div>
-
-
             </nav>
 
             <footer class="sidebar-footer">
@@ -56,7 +57,6 @@
 
         <!-- Основная область: Модульный Дашборд (Только для десктопа) -->
         <main class="dashboard" id="dashboard" role="main">
-
             <!-- Контентная сетка дашборда -->
             <div class="dashboard-grid">
                 <!-- Главная колонка: Издание / Новости / Блог -->
@@ -73,15 +73,32 @@
                                 <button class="filter-btn" data-filter="article">статьи</button>
                                 <button class="filter-btn" data-filter="announcement">объявления</button>
                             </div>
-                            <a href="blog" class="blog-archive-link font-monospace">блог <i class="bi bi-arrow-right"></i></a>
+                            <a href="/blog" class="blog-archive-link font-monospace">блог <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
 
                     <div class="news-list" id="news-container">
-                        <!-- Новости загружаются через JS (feed.json / API) -->
-                        <div class="loading-placeholder font-monospace text-muted">
-                            <i class="bi bi-arrow-repeat spin"></i> Загрузка публикаций...
-                        </div>
+                        {% if site.posts and site.posts.size > 0 %}
+                            {% for post in site.posts limit:3 %}
+                            <a href="{{ post.url | remove: '.html' }}" class="news-item" data-category="{{ post.category | default: 'article' }}">
+                                <div class="news-meta font-monospace">
+                                    <span class="tag-badge tag-{{ post.category | default: 'article' }}">{{ post.tag | default: post.category }}</span>
+                                    <span class="news-date"><i class="bi bi-calendar3"></i> {{ post.date | date: "%Y-%m-%d" }}</span>
+                                    {% if post.author %}
+                                    <span class="text-muted">// {{ post.author }}</span>
+                                    {% endif %}
+                                </div>
+                                <h3 class="news-title">{{ post.title }}</h3>
+                                <p class="news-summary">{{ post.excerpt | strip_html }}</p>
+                            </a>
+                            {% endfor %}
+                        {% else %}
+                            <div class="empty-feed-placeholder font-monospace text-center">
+                                <i class="bi bi-inbox placeholder-icon"></i>
+                                <div class="placeholder-text">// публикаций пока нет</div>
+                                <div class="placeholder-subtext text-muted">новые посты появятся здесь после добавления в блог</div>
+                            </div>
+                        {% endif %}
                     </div>
                 </section>
 

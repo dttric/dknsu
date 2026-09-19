@@ -225,13 +225,51 @@ def build():
     }
     with open(os.path.join(SITE_DIR, "feed.json"), "w", encoding="utf-8") as f:
         json.dump(feed_data, f, ensure_ascii=False, indent=2)
-    with open(os.path.join(PROJECT_DIR, "feed.json"), "w", encoding="utf-8") as f:
-        json.dump(feed_data, f, ensure_ascii=False, indent=2)
     print("[+] Сгенерирован feed.json (топ-3 поста)")
 
-    # 7. Копирование статических файлов
+    # 7. Сборка _site/index.html (внедрение 3 последних постов)
+    index_src_path = os.path.join(PROJECT_DIR, "index.html")
+    with open(index_src_path, "r", encoding="utf-8") as f:
+        index_content = f.read()
+
+    _, index_body = parse_frontmatter(index_content)
+
+    top_posts = posts[:3]
+    if top_posts:
+        news_items_html = []
+        for p in top_posts:
+            item_html = f"""                        <a href="{p['url']}" class="news-item" data-category="{p['category']}">
+                            <div class="news-meta font-monospace">
+                                <span class="tag-badge tag-{p['category']}">{p['tag']}</span>
+                                <span class="news-date"><i class="bi bi-calendar3"></i> {p['date']}</span>
+                                <span class="text-muted">// {p['author']}</span>
+                            </div>
+                            <h3 class="news-title">{p['title']}</h3>
+                            <p class="news-summary">{p['excerpt']}</p>
+                        </a>"""
+            news_items_html.append(item_html)
+        rendered_news = "\n".join(news_items_html)
+    else:
+        rendered_news = """                        <div class="empty-feed-placeholder font-monospace text-center">
+                            <i class="bi bi-inbox placeholder-icon"></i>
+                            <div class="placeholder-text">// публикаций пока нет</div>
+                            <div class="placeholder-subtext text-muted">новые посты появятся здесь после добавления в блог</div>
+                        </div>"""
+
+    # Заменяем содержимое контейнера новостей
+    index_rendered = re.sub(
+        r'(<div class="news-list" id="news-container">)(.*?)(</div>\s*</section>)',
+        r'\1\n' + rendered_news.replace('\\', '\\\\') + r'\n                    \3',
+        index_body,
+        flags=re.DOTALL
+    )
+
+    with open(os.path.join(SITE_DIR, "index.html"), "w", encoding="utf-8") as f:
+        f.write(index_rendered)
+    print("[+] Собрана главная страница: _site/index.html (топ-3 поста)")
+
+    # 8. Копирование остальных статических файлов
     static_files = [
-        "index.html",
         "style.css",
         "blog.css",
         "error.css",
