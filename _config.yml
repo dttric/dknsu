@@ -2,7 +2,12 @@ title: dkn.su
 description: dkn group hub & blog
 url: "https://dkn.su"
 markdown: kramdown
-permalink: /blog/:year-:month-:day-:title.html
+permalink: /blog/:title.html
 exclude:
   - README.md
   - CNAME
+  - build.py
+  - serve.py
+  - start.bat
+  - requirements.txt
+  - Gemfile.lock
