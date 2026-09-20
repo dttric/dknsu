@@ -1,28 +1,12 @@
 ---
 layout: post
-title: "Сводный ченджлог // 20.09.2026"
+title: "changelog // 20.09.2026"
 date: 2026-09-20 20:06:00 +0300
 category: release
 tag: Релиз
 author: dttric
-excerpt: "Сводный отчет за 20 сентября: запуск dkn.su, слияние веток с выходом в прод, переезд хаба на dttric.dkn.su и обновленная темная тема в RassUPK."
+excerpt: "отчет за 20 сентября: запуск dkn.su, переезд хаба на dttric.dkn.su и обновленная темная тема в RassUPK."
 published: true
----
-
-<div class="release-banner">
-    <div class="release-version-wrap">
-        <span class="release-version"><i class="bi bi-tag-fill"></i> 20.09.2026</span>
-        <span class="release-badge latest">latest</span>
-        <span class="release-badge stable">production</span>
-    </div>
-    <div class="release-meta">
-        <span><i class="bi bi-calendar3"></i> 20 сентября 2026</span>
-        <span><i class="bi bi-telegram"></i> #changelog@dknprojects</span>
-    </div>
-</div>
-
-Сводный ченджлог за сегодня, объединяющий все три этапа обновлений сервисов и проектов группы **dkn**.
-
 ---
 
 ### Часть 1: dkn.su // Первый запуск и тест

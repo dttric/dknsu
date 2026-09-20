@@ -39,9 +39,13 @@ def parse_frontmatter(content):
     if content.startswith("---"):
         parts = content.split("---", 2)
         if len(parts) >= 3:
-            metadata = yaml.safe_load(parts[1]) or {}
-            body = parts[2].strip()
-            return metadata, body
+            try:
+                metadata = yaml.safe_load(parts[1]) or {}
+                body = parts[2].strip()
+                return metadata, body
+            except Exception as e:
+                print(f"[!] Предупреждение: ошибка разбора frontmatter YAML ({e})")
+                return {}, content
     return {}, content
 
 def load_layout(name):
