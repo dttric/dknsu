@@ -7,15 +7,17 @@ tag: Релиз
 author: dttric
 excerpt: "отчет за 20 сентября: запуск dkn.su, переезд хаба на dttric.dkn.su и обновленная темная тема в RassUPK."
 published: true
-banner: publication
-version: ""
-status: "published"
+
+banner: false
 ---
 
-
+---
 ### dkn.su
 
-Развертывание и первый запуск основного узла `dkn.su` в изолированной тестовой ветке:
+`dkn.su` был запущен на тестовом домене `dev.dkn.su` для теста<br>
+как оказалось позже у вас к нему доступа наху нет так что да
+<br><br>
+ниже можете посмотреть что случилось:
 
 <div class="commit-tree">
     <div class="commit-row">
@@ -32,49 +34,21 @@ status: "published"
 
 ---
 
-### Часть 2: dkn.su & Hub // Релиз в прод и переезд
+### dttric/hub
 
-Слияние веток, открытие репозитория и перенос хаба на собственный поддомен:
 
-<div class="commit-tree">
-    <div class="commit-row">
-        <span class="commit-hash"><i class="bi bi-git"></i> master</span>
-        <span class="commit-badge feat">release</span>
-        <span class="commit-msg">Слиты ветки <code>test</code> и <code>master</code> — сайт официально доступен</span>
-        <div class="commit-meta">
-            <span>dkn.su</span>
-        </div>
-    </div>
-    <div class="commit-row">
-        <span class="commit-hash"><i class="bi bi-unlock"></i> public</span>
-        <span class="commit-badge chore">repo</span>
-        <span class="commit-msg">Репозиторий проекта вновь переведен в публичный доступ</span>
-        <div class="commit-meta">
-            <span>github</span>
-        </div>
-    </div>
-    <div class="commit-row">
-        <span class="commit-hash"><i class="bi bi-signpost-split"></i> dns</span>
-        <span class="commit-badge refactor">hub</span>
-        <span class="commit-msg">Хаб переехал с <code>dttric.github.io</code> на <code>dttric.dkn.su</code></span>
-        <div class="commit-meta">
-            <span>редирект сохранен</span>
-        </div>
-    </div>
-</div>
 
 <div class="commit-card">
     <div class="commit-card-header">
-        <span class="commit-hash"><i class="bi bi-hdd-network"></i> dttric.dkn.su</span>
-        <span class="commit-badge feat">миграция</span>
+        <a href="https://github.com/dttric/hub/commit/99e1dce82829f49feff0a7c9862391bace39f4b9" target="_blank" class="commit-hash"><i class="bi bi-git"></i> 99e1dce</a>
         <h4 class="commit-card-title">Миграция хаба на поддомен dkn.su</h4>
     </div>
     <div class="commit-card-body">
-        <p>Хаб перенесен на адрес <code>dttric.dkn.su</code> в рамках централизации доменной зоны. Старый адрес <code>dttric.github.io</code> сохраняется как редирект для бесшовного перехода. В связи с обновлением DNS-записей возможна кратковременная недоступность узла.</p>
+        <p>Хаб перенесен на адрес <code>dttric.dkn.su</code> в рамках централизации доменной зоны. Старый адрес <code>dttric.github.io</code> сохраняется как редирект для бесшовного перехода.</p>
+        <p class="text-muted small mb-0">// В связи с обновлением DNS-записей возможна кратковременная недоступность узла.</p>
     </div>
     <div class="commit-card-footer">
-        <span>Статус: <strong>DNS Propagation</strong></span>
-        <span>Зона: <strong>dkn.su</strong></span>
+        <span>Статус: <strong>Сайт работает</strong></span>
     </div>
 </div>
 

@@ -4,6 +4,9 @@
     background-color: var(--bg-primary);
     color: var(--text-primary);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     min-height: 100vh;
     position: relative;
 }
@@ -486,12 +489,28 @@ a.commit-hash:hover {
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
+    letter-spacing: 0.01em;
+    line-height: 1.35;
 }
 
 .commit-card-body {
     color: #cbd5e1;
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.65;
+}
+
+.commit-card-body p {
+    margin-bottom: 0.6rem;
+}
+
+.commit-card-body p:last-child {
+    margin-bottom: 0;
+}
+
+.commit-card-body s,
+.commit-card-body del {
+    color: var(--text-muted);
+    text-decoration-color: rgba(255, 255, 255, 0.25);
 }
 
 .commit-card-footer {
