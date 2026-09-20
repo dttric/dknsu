@@ -14,6 +14,36 @@ layout: default
         <h1 class="post-title">{{ page.title }}</h1>
     </header>
 
+    <!-- START_BANNER -->
+    {% if page.banner and page.banner != false and page.banner != 'false' and page.banner != 'none' and page.banner != 'off' and page.banner != 'disabled' and page.show_banner != false and page.show_banner != 'false' %}
+        {% if page.banner == 'release' or page.banner == 'software' %}
+        <div class="release-banner release-banner-software">
+            <div class="release-version-wrap">
+                <span class="release-version"><i class="bi bi-tag-fill"></i> {{ page.version | default: 'v1.0.0' }}</span>
+                <span class="release-badge latest">{{ page.status | default: 'latest' }}</span>
+                {% if page.badge %}<span class="release-badge stable">{{ page.badge }}</span>{% endif %}
+            </div>
+            <div class="release-meta">
+                <span><i class="bi bi-calendar3"></i> {{ page.date | date: "%Y-%m-%d" }}</span>
+                {% if page.branch %}<span><i class="bi bi-git"></i> {{ page.branch }}</span>{% else %}<span><i class="bi bi-shield-check"></i> verified</span>{% endif %}
+            </div>
+        </div>
+        {% elsif page.banner == 'publication' or page.banner == 'article' %}
+        <div class="release-banner release-banner-publication">
+            <div class="release-version-wrap">
+                <span class="release-version"><i class="bi bi-journal-check"></i> {{ page.version | default: 'dkn // publication' }}</span>
+                <span class="release-badge publication">{{ page.status | default: 'published' }}</span>
+                {% if page.badge %}<span class="release-badge editorial">{{ page.badge }}</span>{% endif %}
+            </div>
+            <div class="release-meta">
+                <span><i class="bi bi-calendar3"></i> {{ page.date | date: "%Y-%m-%d" }}</span>
+                <span><i class="bi bi-person"></i> {{ page.author | default: 'dkn core' }}</span>
+            </div>
+        </div>
+        {% endif %}
+    {% endif %}
+    <!-- END_BANNER -->
+
     <div class="post-content">
         {{ content }}
     </div>
