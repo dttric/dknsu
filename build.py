@@ -147,7 +147,54 @@ def build():
                 "site.time": "2026",
                 "content": html_body
             }
-            rendered_post_body = render_template(post_layout, post_context)
+
+            # Генерация баннера релиза (два универсальных вида: software и publication)
+            banner_type = meta.get("banner")
+            banner_html = ""
+            if banner_type in ("release", "software"):
+                ver = meta.get("version", "v1.0.0")
+                status = meta.get("status", "latest")
+                badge = meta.get("badge", "")
+                badge_html = f'<span class="release-badge stable">{badge}</span>' if badge else ""
+                branch = meta.get("branch", "")
+                branch_html = f'<span><i class="bi bi-git"></i> {branch}</span>' if branch else '<span><i class="bi bi-shield-check"></i> verified</span>'
+                banner_html = f"""
+    <div class="release-banner release-banner-software">
+        <div class="release-version-wrap">
+            <span class="release-version"><i class="bi bi-tag-fill"></i> {ver}</span>
+            <span class="release-badge latest">{status}</span>
+            {badge_html}
+        </div>
+        <div class="release-meta">
+            <span><i class="bi bi-calendar3"></i> {post_data['date']}</span>
+            {branch_html}
+        </div>
+    </div>"""
+            elif banner_type in ("publication", "article"):
+                ver = meta.get("version", "dkn // publication")
+                status = meta.get("status", "published")
+                badge = meta.get("badge", "")
+                badge_html = f'<span class="release-badge editorial">{badge}</span>' if badge else ""
+                banner_html = f"""
+    <div class="release-banner release-banner-publication">
+        <div class="release-version-wrap">
+            <span class="release-version"><i class="bi bi-journal-check"></i> {ver}</span>
+            <span class="release-badge publication">{status}</span>
+            {badge_html}
+        </div>
+        <div class="release-meta">
+            <span><i class="bi bi-calendar3"></i> {post_data['date']}</span>
+            <span><i class="bi bi-person"></i> {post_data['author']}</span>
+        </div>
+    </div>"""
+
+            custom_post_layout = re.sub(
+                r'<!-- START_BANNER -->.*?<!-- END_BANNER -->',
+                banner_html,
+                post_layout,
+                flags=re.DOTALL
+            )
+            rendered_post_body = render_template(custom_post_layout, post_context)
 
             # Оборачиваем в default layout
             default_context = {

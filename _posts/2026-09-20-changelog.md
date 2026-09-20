@@ -7,9 +7,15 @@ tag: Релиз
 author: dttric
 excerpt: "отчет за 20 сентября: запуск dkn.su, переезд хаба на dttric.dkn.su и обновленная темная тема в RassUPK."
 published: true
+banner: release
+version: "20.09.2026"
+status: "latest"
+badge: "production"
+branch: "dknprojects"
 ---
 
-### Часть 1: dkn.su // Первый запуск и тест
+
+### dkn.su
 
 Развертывание и первый запуск основного узла `dkn.su` в изолированной тестовой ветке:
 
@@ -17,23 +23,13 @@ published: true
     <div class="commit-row">
         <span class="commit-hash"><i class="bi bi-git"></i> 21ee266</span>
         <span class="commit-badge feat">feat</span>
-        <span class="commit-msg">РАБОТА РАБОТА СУКА РАБОТА БЛЯТЬ (целый сайт одним коммитом)</span>
+        <span class="commit-msg"></span>
         <div class="commit-meta">
             <span class="diff-add">+весь сайт</span>
             <span><i class="bi bi-person"></i> dttric</span>
         </div>
-    </div>
-    <div class="commit-row">
-        <span class="commit-hash"><i class="bi bi-git"></i> 6b05953</span>
-        <span class="commit-badge fix">fix</span>
-        <span class="commit-msg">Конфигурация сборочного пайплайна и фикс деплоя</span>
-        <div class="commit-meta">
-            <span><i class="bi bi-person"></i> dttric</span>
-        </div>
-    </div>
 </div>
 
-> **Контекст**: Первичная сборка и тестирование логики сайта в закрытом режиме перед открытием публичного доступа.
 
 ---
 
