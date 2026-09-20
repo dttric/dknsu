@@ -410,6 +410,12 @@ a.commit-hash:hover {
     border: 1px solid rgba(236, 72, 153, 0.3);
 }
 
+.commit-badge.merge {
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.35);
+}
+
 /* Сообщение коммита */
 .commit-msg {
     flex: 1 1 auto;

@@ -21,13 +21,14 @@ branch: "dknprojects"
 
 <div class="commit-tree">
     <div class="commit-row">
-        <span class="commit-hash"><i class="bi bi-git"></i> 21ee266</span>
-        <span class="commit-badge feat">feat</span>
-        <span class="commit-msg"></span>
+        <a href="https://github.com/dttric/dknsu/commit/b8e73156bb055dda30b6fd9afc35cd04c022eb20" target="_blank" class="commit-hash"><i class="bi bi-git"></i> b8e7315</a>
+        <span class="commit-badge merge">merge</span>
+        <span class="commit-msg">#2: ОБНОВЛЕНИЕ ЕБАТЬ</span>
         <div class="commit-meta">
             <span class="diff-add">+весь сайт</span>
             <span><i class="bi bi-person"></i> dttric</span>
         </div>
+    </div>
 </div>
 
 
