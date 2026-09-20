@@ -16,6 +16,7 @@ banner: false
 
 `dkn.su` был запущен на тестовом домене `dev.dkn.su` для теста<br>
 как оказалось позже у вас к нему доступа наху нет так что да
+<br><br>так-же репозиторий `dttric/dknsu` теперь публичен
 <br><br>
 ниже можете посмотреть что случилось:
 
@@ -45,46 +46,34 @@ banner: false
     </div>
     <div class="commit-card-body">
         <p>Хаб перенесен на адрес <code>dttric.dkn.su</code> в рамках централизации доменной зоны. Старый адрес <code>dttric.github.io</code> сохраняется как редирект для бесшовного перехода.</p>
-        <p class="text-muted small mb-0">// В связи с обновлением DNS-записей возможна кратковременная недоступность узла.</p>
-    </div>
-    <div class="commit-card-footer">
-        <span>Статус: <strong>Сайт работает</strong></span>
+        <p class="text-muted small mb-0"><s>В связи с обновлением DNS-записей возможна кратковременная недоступность узла.</s></p>
     </div>
 </div>
 
 ---
 
-### Часть 3: RassUPK // Обновление темной темы
+### RassUPK
 
 Редизайн и исправление интерфейса расписания **RassUPK**:
 
 <div class="commit-tree">
     <div class="commit-row">
-        <span class="commit-hash"><i class="bi bi-palette2"></i> ui</span>
+        <a href="https://github.com/dttric/rassupk/commit/d1f113906d0e4a3d9545024c53acd204e302c7be" target="_blank" class="commit-hash"><i class="bi bi-git"></i> d1f1139</a>
         <span class="commit-badge fix">fix</span>
-        <span class="commit-msg">Исправлена и приведена в нормальный вид темная тема (мяу)</span>
+        <span class="commit-msg">фикс темной темы</span>
         <div class="commit-meta">
-            <span class="diff-add">+dark mode</span>
-            <span>RassUPK</span>
+            <span>dttric/RassUPK</span>
         </div>
     </div>
 </div>
 
 <div class="commit-card">
     <div class="commit-card-header">
-        <span class="commit-hash"><i class="bi bi-moon-stars"></i> theme</span>
+        <a href="https://github.com/dttric/rassupk/commit/d1f113906d0e4a3d9545024c53acd204e302c7be" target="_blank" class="commit-hash"><i class="bi bi-git"></i> d1f1139</a>
         <span class="commit-badge style">дизайн</span>
-        <h4 class="commit-card-title">Темная тема расписания занятий</h4>
+        <h4 class="commit-card-title">Темная тема</h4>
     </div>
     <div class="commit-card-body">
-        <ul>
-            <li>Переработана контрастность расписания учебных пар и карточек дисциплин.</li>
-            <li>Адаптирован календарь учебного года и селекторы недель/дней.</li>
-            <li>Цветовая палитра синхронизирована с общей эстетикой dkn (темно-синий фон, неоновые акценты).</li>
-        </ul>
-    </div>
-    <div class="commit-card-footer">
-        <span>Модуль: <strong>RassUPK Web</strong></span>
-        <span>Тема: <strong>Cyber Dark</strong></span>
+        Откровенно говоря первая версия темной темы созданная копайлотом была хуевенькой, но зато ща все секс юзабельно и тд
     </div>
 </div>
