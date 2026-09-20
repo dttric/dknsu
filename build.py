@@ -148,17 +148,26 @@ def build():
                 "content": html_body
             }
 
-            # Генерация баннера релиза (два универсальных вида: software и publication)
+            # Генерация баннера релиза (два универсальных вида: software и publication, либо отключен)
             banner_type = meta.get("banner")
+            show_banner = meta.get("show_banner", True)
+
+            # Проверка отключения: banner: false / none / off / disabled или show_banner: false
+            is_disabled = (
+                banner_type in (False, None, "false", "none", "off", "disabled", "no", "0") or
+                show_banner in (False, "false", "no", "0", "off")
+            )
+
             banner_html = ""
-            if banner_type in ("release", "software"):
-                ver = meta.get("version", "v1.0.0")
-                status = meta.get("status", "latest")
-                badge = meta.get("badge", "")
-                badge_html = f'<span class="release-badge stable">{badge}</span>' if badge else ""
-                branch = meta.get("branch", "")
-                branch_html = f'<span><i class="bi bi-git"></i> {branch}</span>' if branch else '<span><i class="bi bi-shield-check"></i> verified</span>'
-                banner_html = f"""
+            if not is_disabled:
+                if banner_type in ("release", "software"):
+                    ver = meta.get("version", "v1.0.0")
+                    status = meta.get("status", "latest")
+                    badge = meta.get("badge", "")
+                    badge_html = f'<span class="release-badge stable">{badge}</span>' if badge else ""
+                    branch = meta.get("branch", "")
+                    branch_html = f'<span><i class="bi bi-git"></i> {branch}</span>' if branch else '<span><i class="bi bi-shield-check"></i> verified</span>'
+                    banner_html = f"""
     <div class="release-banner release-banner-software">
         <div class="release-version-wrap">
             <span class="release-version"><i class="bi bi-tag-fill"></i> {ver}</span>
@@ -170,12 +179,12 @@ def build():
             {branch_html}
         </div>
     </div>"""
-            elif banner_type in ("publication", "article"):
-                ver = meta.get("version", "dkn // publication")
-                status = meta.get("status", "published")
-                badge = meta.get("badge", "")
-                badge_html = f'<span class="release-badge editorial">{badge}</span>' if badge else ""
-                banner_html = f"""
+                elif banner_type in ("publication", "article"):
+                    ver = meta.get("version", "dkn // publication")
+                    status = meta.get("status", "published")
+                    badge = meta.get("badge", "")
+                    badge_html = f'<span class="release-badge editorial">{badge}</span>' if badge else ""
+                    banner_html = f"""
     <div class="release-banner release-banner-publication">
         <div class="release-version-wrap">
             <span class="release-version"><i class="bi bi-journal-check"></i> {ver}</span>

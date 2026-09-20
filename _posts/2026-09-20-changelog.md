@@ -7,11 +7,9 @@ tag: Релиз
 author: dttric
 excerpt: "отчет за 20 сентября: запуск dkn.su, переезд хаба на dttric.dkn.su и обновленная темная тема в RassUPK."
 published: true
-banner: release
-version: "20.09.2026"
-status: "latest"
-badge: "production"
-branch: "dknprojects"
+banner: publication
+version: ""
+status: "published"
 ---
 
 
