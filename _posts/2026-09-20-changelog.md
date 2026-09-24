@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "changelog // 20.09.2026"
-date: 2026-09-20 20:06:00 +0300
+date: 2026-20-09 20:06:00 +0700
 category: release
 tag: Релиз
 author: dttric
